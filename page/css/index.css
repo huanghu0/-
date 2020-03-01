@@ -25,3 +25,50 @@
     color: slateblue;
 }
 
+.article_list {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.article {
+    background: white;
+    display: inline-block;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 1px 2px 2px #888888;
+    overflow: hidden;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.article_title {
+    display: inline-block;
+    font-size: 20px;
+    text-decoration: none;
+    color: #13102b;
+    padding: 20px 10px 5px 10px;
+    text-align: left;
+}
+
+.article_title:hover {
+    color: #337ab7
+}
+
+.article_content {
+    font-size: 14px;
+    color: #13102b;
+    padding: 0px 10px 20px 10px;
+    text-align: left;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+.article_foot {
+    color: #eeeeee;
+    background: #1f1f1f;
+    width: 100%;
+    padding: 5px 15px;
+    font-size: 14px;
+}
