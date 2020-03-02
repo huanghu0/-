@@ -7,6 +7,7 @@
     <title>黄虎个人博客</title>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
     <header class="header">
@@ -28,9 +29,9 @@
     </header>
     <div class="content">
         <div class="content_left">
-            <div class="every_day">
+            <div class="every_day" id="every_day">
                 <span>每日一句</span>
-                <p>pspvhhihishgoiwehouisdiuhwuhdhgiehijsdhfuhweiu</p>
+                <p v-html="getContent">pspvhhihishgoiwehouisdiuhwuhdhgiehijsdhfuhweiu</p>
                 <p>-----hwuhdhgiehijsdhfuhweiu</p>
             </div>
             <div class="article_list">
@@ -129,5 +130,6 @@
         </ul>
         <p>Copyright © 2020-2020 刚刚开始</p>
     </footer>
+    <script src="./js/index.js"></script>
 </body>
 </html>
