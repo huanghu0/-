@@ -1,3 +1,4 @@
+// 首页里每日一句部分
 var everyDay = new Vue({
     el:"#every_day",
     data:{
@@ -14,6 +15,7 @@ var everyDay = new Vue({
     }
 })
 
+//首页里文章列表(博客)部分
 var article_list = new Vue({
     el:"#article_list",
     data:{
