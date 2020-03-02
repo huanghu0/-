@@ -17,24 +17,22 @@
     <script src="./bootstrap-wysiwyg-master/bootstrap-wysiwyg.js"></script>
     <script>
       function submit() {
-        //   var content = $("#editor").html();
-        //   var title = $("#title").val();
-        //   var tags = $("#tags").val();
+          var content = $("#editor").html();
           alert("提交");
-        //   $.ajax({
-        //       url: "/editBlog?title=" + title + "&tags=" + tags,
-        //       method: "post",
-        //       data: content,
-        //       success: function(resp) {
-        //           var result = JSON.parse(resp);
-        //           alert(result.msg);
-        //           $("#editor").html("");
-        //       },
-        //       error: function (resp) {
-        //           console.log(resp);
-        //       }
-        //   });
-
+          $.ajax({
+              url: "/editEveryDay",
+              method: "post",
+              data: content,
+              success: function(resp) {
+                  // console.log(resp);
+                  var result = JSON.parse(resp);
+                  alert(result.msg);
+                  $("#editor").html("");
+              },
+              error: function (resp) {
+                  console.log(resp);
+              }
+          });
       }
     </script>
     <style>
