@@ -42,5 +42,9 @@ var article_list = new Vue({
             id:'1',
             link:''
         }]
+    },
+    created:function(){
+        //请求数据,给content赋值
+
     }
 })
