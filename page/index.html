@@ -34,13 +34,13 @@
                 <p v-html="getContent">pspvhhihishgoiwehouisdiuhwuhdhgiehijsdhfuhweiu</p>
                 <p>-----hwuhdhgiehijsdhfuhweiu</p>
             </div>
-            <div class="article_list">
-                <div class="article">
-                    <a href="/" class="article_title">与服务器斗争的第四天</a>
+            <div class="article_list" id="article_list">
+                <div class="article" v-for="article in articleList" >
+                    <a v-bind:href="article.link" class="article_title">与服务器斗争的第四天</a>
                     <p class="article_content">
-                        qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwddddddddddddddddddssssssssssssss
+                        {{article.content}}
                     </p>
-                    <div class="article_foot">发布于2020-03-01 | 浏览(0) | Tags: centos linux操作系统</div>                    
+                    <div class="article_foot">发布于{{article.date}} | 浏览({{article.views}}) | Tags: {{article.tags}}</div>                    
                 </div>
             </div>
         </div>

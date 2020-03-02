@@ -13,3 +13,34 @@ var everyDay = new Vue({
 
     }
 })
+
+var article_list = new Vue({
+    el:"#article_list",
+    data:{
+        articleList:[{
+            title:'与服务器斗争的第四天',
+            content:'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwddddddddddddddddddssssssssssssss',
+            date:'2020-03-01',
+            views:'0',
+            tags:'centOS linux',
+            id:'1',
+            link:''
+        },{
+            title:'与服务器斗争的第四天',
+            content:'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwddddddddddddddddddssssssssssssss',
+            date:'2020-03-01',
+            views:'0',
+            tags:'centOS linux',
+            id:'1',
+            link:''
+        },{
+            title:'与服务器斗争的第四天',
+            content:'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwddddddddddddddddddssssssssssssss',
+            date:'2020-03-01',
+            views:'0',
+            tags:'centOS linux',
+            id:'1',
+            link:''
+        }]
+    }
+})
