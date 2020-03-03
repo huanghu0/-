@@ -9,6 +9,8 @@ app.use(express.static('./page/'));//指定静态目录,express默认会去找�
 app.post("/editEveryDay", loader.get("/editEveryDay"));
 app.get("/queryEveryDay", loader.get("/queryEveryDay"));
 
+app.post("/editBlog", loader.get("/editBlog"));
+
 app.listen(globalconfig.port,()=>{
     console.log("服务已启动");
 })

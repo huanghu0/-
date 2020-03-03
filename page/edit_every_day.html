@@ -17,7 +17,7 @@
     <script src="./bootstrap-wysiwyg-master/bootstrap-wysiwyg.js"></script>
     <script>
       function submit() {
-          var content = $("#editor").html();
+          let content = $("#editor").html();
           alert("提交");
           $.ajax({
               url: "/editEveryDay",
@@ -25,7 +25,7 @@
               data: content,
               success: function(resp) {
                   // console.log(resp);
-                  var result = JSON.parse(resp);
+                  let result = JSON.parse(resp);
                   alert(result.msg);
                   $("#editor").html("");
               },

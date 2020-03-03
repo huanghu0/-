@@ -21,10 +21,10 @@ function insertEveryDay(content,ctime,success){
 }
 
 function queryEveryDay(success) {
-    var querySql = "select * from every_day order by id desc limit 1;";//查询返回倒叙最后一个
-    var params = [];
+    let querySql = "select * from every_day order by id desc limit 1;";//查询返回倒叙最后一个
+    let params = [];
 
-    var connection = dbutil.createConnection();
+    let connection = dbutil.createConnection();
     connection.connect();
     connection.query(querySql, params, function (error, result) {
         if (error == null) {
