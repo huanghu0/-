@@ -36,7 +36,7 @@
             </div>
             <div class="article_list" id="article_list">
                 <div class="article" v-for="article in articleList" >
-                    <a v-bind:href="article.link" class="article_title">与服务器斗争的第四天</a>
+                    <a v-bind:href="article.link" class="article_title">{{article.title}}</a>
                     <p class="article_content">
                         {{article.content}}
                     </p>

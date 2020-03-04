@@ -13,7 +13,7 @@ function editBlog(request, response) {
     request.on("data", function (data) {
         blogDao.insertBlog(data.toString(),params.title, tags, 0, timeUtil.getNow(), timeUtil.getNow(), function (result) {
             response.writeHead(200);
-            response.write(respUtil.writeResult("success", "添加成功", null));
+            response.write(respUtil.writeResult("success", "添加成功", null));//返回给前端一个对象用来提示前端
             response.end();
             let blogId = result.insertId;
             let tagList = tags.split(",");
@@ -47,7 +47,21 @@ function insertTagBlogMapping(tagId, blogId) {
     tagBlogMappingDao.insertTagBlogMapping(tagId, blogId, timeUtil.getNow(), timeUtil.getNow(), function (result) {});
 }
 path.set("/editBlog", editBlog);
-
-
+//首页进入时加载博客显示在界面上，对应的后端接口函数
+function queryBlogByPage(request,response){
+    let params = url.parse(request.url,true).query;
+    blogDao.queryBlogByPage(parseInt(params.page),parseInt(params.pageSize),function(result){
+        // console.log(result);
+        for (let i = 0 ; i < result.length ; i ++) {
+            result[i].content = result[i].content.replace(/<img[\w\W]*">/, "");//将图片过滤掉
+            result[i].content = result[i].content.replace(/<[\w\W]{1,5}>/g, "");
+            // result[i].content = result[i].content.substring(0, 300);
+        }
+        response.writeHead(200);//写响应头
+        response.write(respUtil.writeResult("success", "查询成功", result));//写数据体
+        response.end();//结束
+    })
+}
+path.set("/queryBlogByPage",queryBlogByPage);
 
 module.exports.path = path;
