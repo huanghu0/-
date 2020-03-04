@@ -64,4 +64,13 @@ function queryBlogByPage(request,response){
 }
 path.set("/queryBlogByPage",queryBlogByPage);
 
+function queryBlogCount(request, response) {
+    blogDao.queryBlogCount(function (result) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult("success", "查询成功", result));
+        response.end();
+    });
+}
+path.set("/queryBlogCount", queryBlogCount);
+
 module.exports.path = path;

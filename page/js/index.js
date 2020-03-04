@@ -29,6 +29,8 @@ var article_list = new Vue({
     data:{
         page:1,
         pageSize:5,
+        count: 100,
+        pageNumList: [],
         articleList:[{
             title:'与服务器斗争的第四天',
             content:'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwddddddddddddddddddssssssssssssss',
@@ -40,6 +42,11 @@ var article_list = new Vue({
         }]
     },
     computed:{
+        jumpTo: function() {
+            return function (page) {
+                this.getPage(page, this.pageSize);
+            }
+        },
         getPage:function(page,pageSize){
             return function(page,pageSize){
                 axios({
@@ -61,10 +68,41 @@ var article_list = new Vue({
                         list.push(temp);
                     }
                     article_list.articleList = list;
+                    article_list.page = page;
                 }).catch(function(resp){
                     console.log("请求错误");
-                })
+                });
+                axios({
+                    method: "get",
+                    url: "/queryBlogCount"
+                }).then(function(resp) {
+                    article_list.count = resp.data.data[0].count;
+                    article_list.generatePageTool;
+                });
             }
+        },
+        generatePageTool: function () {//分页插件
+            var nowPage = this.page;
+            var pageSize = this.pageSize;
+            var totalCount = this.count;
+            var result = [];
+            result.push({text:"<<", page: 1});
+            if (nowPage > 2) {
+                result.push({text: nowPage - 2, page:nowPage - 2});
+            }
+            if (nowPage > 1) {
+                result.push({text: nowPage - 1, page:nowPage - 1});
+            }
+            result.push({text: nowPage, page:nowPage});
+            if (nowPage + 1 <= (totalCount + pageSize - 1) / pageSize) {
+                result.push({text:nowPage + 1, page: nowPage + 1});
+            }
+            if (nowPage + 2 <= (totalCount + pageSize - 1) / pageSize) {
+                result.push({text:nowPage + 2, page: nowPage + 2});
+            }
+            result.push({text:">>", page: parseInt((totalCount + pageSize - 1) / pageSize)});
+            this.pageNumList = result;
+            return result;
         }
     },
     created:function(){
