@@ -64,7 +64,7 @@ function queryBlogByPage(request,response){
 }
 path.set("/queryBlogByPage",queryBlogByPage);
 
-function queryBlogCount(request, response) {
+function queryBlogCount(request, response) {//返回所有的博客的数量，对应的后端接口函数
     blogDao.queryBlogCount(function (result) {
         response.writeHead(200);
         response.write(respUtil.writeResult("success", "查询成功", result));
@@ -73,4 +73,15 @@ function queryBlogCount(request, response) {
 }
 path.set("/queryBlogCount", queryBlogCount);
 
+function queryBlogById(request,response){
+    let params = url.parse(request.url,true).query;
+    blogDao.queryBlogById(parseInt(params.bid),function (result) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult("success", "查询成功", result));
+        response.end();
+    });
+}
+path.set("/queryBlogById",queryBlogById);
+
 module.exports.path = path;
+

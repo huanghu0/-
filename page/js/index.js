@@ -64,7 +64,7 @@ var article_list = new Vue({
                         temp.views = result[i].views;
                         temp.tags = result[i].tags;
                         temp.id = result[i].id;
-                        temp.link = "/" + result[i].id;
+                        temp.link = "/detail_blog.html?bid=" + result[i].id;
                         list.push(temp);
                     }
                     article_list.articleList = list;
