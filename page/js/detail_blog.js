@@ -44,12 +44,30 @@ var blogDetail = new Vue({
 
 var sendComment = new Vue({
     el:"#send_comment",
-    data:{
-
+    data: {
+        vcode: "",
+        rightCode: ""
     },
     computed:{
+        changeCode: function() {
+            return function () {
+                axios({
+                    method: "get",
+                    url: "/queryRandomCode"
+                }).then(function (resp) {
+                    console.log(resp);
+                    sendComment.vcode = resp.data.data.data;
+                    sendComment.rightCode = resp.data.data.text;
+                });
+            }
+        },
         sendComment: function() {
             return function () {
+                var code = document.getElementById("comment_code").value;
+                if (code != sendComment.rightCode) {
+                    alert("验证码有误");
+                    return;
+                }
                 var searcheUrlParams = location.search.indexOf("?") > -1 ? location.search.split("?")[1].split("&") : "";
                 var bid = -10;
 
@@ -75,5 +93,8 @@ var sendComment = new Vue({
                 });
             }
         }
+    },
+    created:function(){//刚进入时加载一篇验证码
+        this.changeCode();
     }
 })
