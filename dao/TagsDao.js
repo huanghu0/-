@@ -1,7 +1,6 @@
 let dbutil = require("./DBUtil");
 
-//插入博客后需要插入对应的标签到数据库
-function insertTag(tag, ctime, utime, success) {
+function insertTag(tag, ctime, utime, success) {//插入博客后需要插入对应的标签到数据库
     let insertSql = "insert into tags (`tag`, `ctime`, `utime`) values (?, ?, ?)";
     let params = [tag, ctime, utime];
 
@@ -17,7 +16,7 @@ function insertTag(tag, ctime, utime, success) {
     connection.end();
 }
 
-function queyrTag(tag, success) {
+function queyrTag(tag, success) {//查询标签
     let insertSql = "select * from tags where tag = ?;";
     let params = [tag];
     let connection = dbutil.createConnection();

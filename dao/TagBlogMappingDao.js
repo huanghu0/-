@@ -1,6 +1,5 @@
 let dbutil = require("./DBUtil");
-//插入博客是需要把对应的标签和博客映射起来插入表中
-function insertTagBlogMapping(tagId, blogId, ctime, utime, success) {
+function insertTagBlogMapping(tagId, blogId, ctime, utime, success) {//插入博客是需要把对应的标签和博客映射起来插入表中
     let insertSql = "insert into tag_blog_mapping (`tag_id`, `blog_id`, `ctime`, `utime`) values (?, ?, ?, ?)";
     let params = [tagId, blogId, ctime, utime];
 

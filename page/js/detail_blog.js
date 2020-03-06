@@ -1,5 +1,6 @@
+//一篇博客对应的详细信息
 var blogDetail = new Vue({
-    el:"#blog_detail",
+    el: "#blog_detail",
     data: {
         title: "",
         content: "",
@@ -7,10 +8,10 @@ var blogDetail = new Vue({
         tags: "",
         views: ""
     },
-    computed:{
+    computed: {
 
     },
-    created:function(){
+    created: function () {
         //页面加载进来的时候请求数据
         var searcheUrlParams = location.search.indexOf("?") > -1 ? location.search.split("?")[1].split("&") : "";
         if (searcheUrlParams == "") {
@@ -18,19 +19,19 @@ var blogDetail = new Vue({
         }
         var bid = -1;
 
-        for (var i = 0 ; i < searcheUrlParams.length ; i ++) {
+        for (var i = 0; i < searcheUrlParams.length; i++) {
             if (searcheUrlParams[i].split("=")[0] == "bid") {
                 try {
                     bid = parseInt(searcheUrlParams[i].split("=")[1]);
-                }catch (e) {
+                } catch (e) {
                     console.log(e);
                 }
             }
         }
         axios({
-            method:"get",
-            url:'/queryBlogById?bid='+bid,//通过编号查id
-        }).then(function(resp){
+            method: "get",
+            url: '/queryBlogById?bid=' + bid,//通过编号查id
+        }).then(function (resp) {
             // console.log(resp);
             var result = resp.data.data[0];
             blogDetail.title = result.title;
@@ -42,14 +43,16 @@ var blogDetail = new Vue({
     }
 })
 
+
+//发表评论vue实例
 var sendComment = new Vue({
-    el:"#send_comment",
+    el: "#send_comment",
     data: {
         vcode: "",
-        rightCode: ""
+        rightCode: "",
     },
-    computed:{
-        changeCode: function() {
+    computed: {
+        changeCode: function () {
             return function () {
                 axios({
                     method: "get",
@@ -61,7 +64,7 @@ var sendComment = new Vue({
                 });
             }
         },
-        sendComment: function() {
+        sendComment: function () {
             return function () {
                 var code = document.getElementById("comment_code").value;
                 if (code != sendComment.rightCode) {
@@ -71,30 +74,83 @@ var sendComment = new Vue({
                 var searcheUrlParams = location.search.indexOf("?") > -1 ? location.search.split("?")[1].split("&") : "";
                 var bid = -10;
 
-                for (var i = 0 ; i < searcheUrlParams.length ; i ++) {
+                for (var i = 0; i < searcheUrlParams.length; i++) {
                     if (searcheUrlParams[i].split("=")[0] == "bid") {
                         try {
                             bid = parseInt(searcheUrlParams[i].split("=")[1]);
-                        }catch (e) {
+                        } catch (e) {
                             console.log(e);
                         }
                     }
                 }
                 var reply = document.getElementById("comment_reply").value;
-                // var replyName = document.getElementById("comment_reply_name").value;
+                var replyName = document.getElementById("comment_reply_name").value;
                 var name = document.getElementById("comment_name").value;
                 var email = document.getElementById("comment_email").value;
                 var content = document.getElementById("comment_content").value;
                 axios({
                     method: "get",
-                    url: "/addComments?bid=" + bid + "&parent=" + reply + "&userName=" + name + "&email=" + email + "&content=" + content
+                    url: "/addComments?bid=" + bid + "&parent=" + reply + "&userName=" + name + "&email=" + email + "&content=" + content + "&parentName=" + replyName
                 }).then(function (resp) {
                     alert(resp.data.msg);
+                    window.location.reload();//提交评论过后重新载入一下
+                    sendComment.tipCount = false;
                 });
             }
         }
     },
-    created:function(){//刚进入时加载一篇验证码
+    created: function () {//刚进入时加载一篇验证码
         this.changeCode();
     }
 })
+//博客评论
+var blogComments = new Vue({
+    el: "#blog_comments",
+    data: {
+        total: 0,
+        comments: []
+    },
+    computed: {
+        reply: function () {
+            return function (commentId, userName) {
+                document.getElementById("comment_reply").value = commentId;
+                document.getElementById("comment_reply_name").value = userName;
+                location.href = "#send_comment";
+            }
+        }
+    },
+    created: function () {
+        var searcheUrlParams = location.search.indexOf("?") > -1 ? location.search.split("?")[1].split("&") : "";
+        var bid = -10;
+
+        for (var i = 0; i < searcheUrlParams.length; i++) {
+            if (searcheUrlParams[i].split("=")[0] == "bid") {
+                try {
+                    bid = parseInt(searcheUrlParams[i].split("=")[1]);
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        }
+        axios({
+            method: "get",
+            url: "/queryCommentsByBlogId?bid=" + bid //通过博客id查询博客评论
+        }).then(function (resp) {
+            blogComments.comments = resp.data.data;
+            // console.log(resp);
+            for (var i = 0; i < blogComments.comments.length; i++) {
+                if (blogComments.comments[i].parent > -1) {
+                    blogComments.comments[i].options = "回复@" + blogComments.comments[i].parent_name;
+                }
+            }
+        });
+        axios({
+            method: "get",
+            url: "/queryCommentsCountByBlogId?bid=" + bid //通过博客id查询对应评论的数量
+        }).then(function (resp) {
+            blogComments.total = resp.data.data[0].count;
+        }).catch(function (resp) {
+            console.log("请求错误");
+        });
+    }
+});

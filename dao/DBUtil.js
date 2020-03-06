@@ -1,6 +1,6 @@
 let mysql = require("mysql");
 
-function createConnection(){
+function createConnection(){//创建数据库连接
     let connection = mysql.createConnection({
         host:'116.62.54.125',
         port:'3306',

@@ -1,6 +1,5 @@
 let dbutil = require("./DBUtil");
-//编辑博客添加进入数据库
-function insertBlog(content,title, tags, views, ctime, utime, success) {
+function insertBlog(content,title, tags, views, ctime, utime, success) {//编辑博客添加进入数据库
     let insertSql = "insert into blog (`content`,`title`, `tags`, `views`, `ctime`, `utime`) values (?, ?, ?, ?, ?, ?)";
     let params = [content,title,tags, views, ctime, ctime];
 
