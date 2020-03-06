@@ -46,6 +46,22 @@ function queryCommentCountByBlogId(blogId, success) {//通过博客的id查询�
     connection.end();
 }
 
+function queryNewComments(size, success) {//查询最新评论
+    let querySql = "select * from comments order by id desc limit ?;";
+    let params = [size];
+    let connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertComment = insertComment;
 module.exports.queryCommentsByBlogId = queryCommentsByBlogId;
 module.exports.queryCommentCountByBlogId = queryCommentCountByBlogId;
+module.exports.queryNewComments = queryNewComments;

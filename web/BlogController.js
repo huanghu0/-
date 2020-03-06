@@ -82,5 +82,24 @@ function queryBlogById(request,response){//通过id查询博客的后端接口�
 }
 path.set("/queryBlogById",queryBlogById);
 
+function queryAllBlog(request, response) {//插叙所有博客对应的后端接口函数
+    blogDao.queryAllBlog(function (result) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult("success", "查询成功", result));
+        response.end();
+    });
+}
+path.set("/queryAllBlog", queryAllBlog);
+
+function queryHotBlog(request, response) {//查询热门博客
+    blogDao.queryHotBlog(5, function (result) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult("success", "查询成功", result));
+        response.end();
+    });
+}
+
+path.set("/queryHotBlog", queryHotBlog);
+
 module.exports.path = path;
 

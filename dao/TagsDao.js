@@ -31,5 +31,21 @@ function queyrTag(tag, success) {//查询标签
     connection.end();
 }
 
+function queyrAllTag(success) {
+    let insertSql = "select * from tags;";
+    let params = [];
+    let connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(insertSql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertTag = insertTag;
 module.exports.queyrTag = queyrTag;
+module.exports.queyrAllTag = queyrAllTag;

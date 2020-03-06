@@ -45,4 +45,14 @@ function queryCommentsCountByBlogId(request, response) {//通过博客id查评�
 }
 path.set("/queryCommentsCountByBlogId", queryCommentsCountByBlogId);
 
+function queryNewComments(request, response) {//查询最新评论的后端函数接口
+    CommentsDao.queryNewComments(5, function (result) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult("success", "评论成功", result));
+        response.end();
+    });
+}
+path.set("/queryNewComments", queryNewComments);
+
+
 module.exports.path = path;

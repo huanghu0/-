@@ -10,8 +10,7 @@ var blogDetail = new Vue({//一篇博客对应的详细信息
     computed: {
 
     },
-    created: function () {
-        //页面加载进来的时候请求数据
+    created: function () { //页面加载进来的时候请求数据
         var searcheUrlParams = location.search.indexOf("?") > -1 ? location.search.split("?")[1].split("&") : "";
         if (searcheUrlParams == "") {
             return;
@@ -38,10 +37,11 @@ var blogDetail = new Vue({//一篇博客对应的详细信息
             blogDetail.ctime = result.ctime;
             blogDetail.tags = result.tags;
             blogDetail.views = result.views;
-        })
+        }).catch(function (resp) {
+            console.log("请求失败");
+        });
     }
 })
-
 
 var sendComment = new Vue({//发表评论vue实例
     el: "#send_comment",

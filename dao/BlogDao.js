@@ -62,7 +62,58 @@ function queryBlogById(bid,success){//通过bid来查找对应的博客
     connection.end();
 }
 
+function queryAllBlog(success) {//插叙所有的博客
+    let querySql = "select * from blog order by id desc;";
+    let params = [];
+
+    let connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
+function addViews(id, success) {//刷新浏览次数
+    let querySql = "update blog set views = views + 1 where id = ?;";
+    let params = [id];
+
+    let connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
+function queryHotBlog(size, success) {//插叙热销博客
+    let querySql = "select * from blog order by views desc limit ?;";
+    let params = [size];
+
+    let connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        } else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertBlog = insertBlog;
 module.exports.queryBlogByPage = queryBlogByPage;
 module.exports.queryBlogCount = queryBlogCount;
 module.exports.queryBlogById = queryBlogById;
+module.exports.queryAllBlog = queryAllBlog;
+module.exports.addViews = addViews;
+module.exports.queryHotBlog = queryHotBlog;
