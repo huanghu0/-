@@ -1,5 +1,4 @@
-//一篇博客对应的详细信息
-var blogDetail = new Vue({
+var blogDetail = new Vue({//一篇博客对应的详细信息
     el: "#blog_detail",
     data: {
         title: "",
@@ -44,8 +43,7 @@ var blogDetail = new Vue({
 })
 
 
-//发表评论vue实例
-var sendComment = new Vue({
+var sendComment = new Vue({//发表评论vue实例
     el: "#send_comment",
     data: {
         vcode: "",
@@ -94,7 +92,6 @@ var sendComment = new Vue({
                 }).then(function (resp) {
                     alert(resp.data.msg);
                     window.location.reload();//提交评论过后重新载入一下
-                    sendComment.tipCount = false;
                 });
             }
         }
@@ -103,8 +100,8 @@ var sendComment = new Vue({
         this.changeCode();
     }
 })
-//博客评论
-var blogComments = new Vue({
+
+var blogComments = new Vue({//博客评论
     el: "#blog_comments",
     data: {
         total: 0,

@@ -1,5 +1,4 @@
-// 首页里每日一句部分
-var everyDay = new Vue({
+var everyDay = new Vue({// 首页里每日一句部分
     el:"#every_day",
     data:{
         content:"锄禾日当午，汗滴禾下土",
@@ -23,8 +22,7 @@ var everyDay = new Vue({
     }
 })
 
-//首页里文章列表(博客)部分
-var article_list = new Vue({
+var article_list = new Vue({//首页里文章列表(博客)部分
     el:"#article_list",
     data:{
         page:1,

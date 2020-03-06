@@ -1,5 +1,4 @@
-// 首页右侧随机标签云部分
-var randomTags = new Vue({
+var randomTags = new Vue({// 首页右侧随机标签云部分
     el:"#random_tags",
     data:{
         tags:["sss","www","rrr","ttt","uuu","ddd","mmm","ccc","aaa","xxx"]
@@ -25,8 +24,7 @@ var randomTags = new Vue({
     }
 })
 
-//首页右侧最新热门
-var newHot = new Vue({
+var newHot = new Vue({//首页右侧最新热门
     el:"#new_hot",
     data:{
         titleList:[
@@ -43,8 +41,7 @@ var newHot = new Vue({
     }
 })
 
-//右侧最新评论
-var newComments = new Vue({
+var newComments = new Vue({//右侧最新评论
     el:"#new_comments",
     data:{
         commentList:[
