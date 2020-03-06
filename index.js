@@ -29,7 +29,7 @@ app.get("/queryNewComments", loader.get("/queryNewComments"));
 app.get("/queryByTag", loader.get("/queryByTag"));
 app.get("/queryByTagCount", loader.get("/queryByTagCount"));
 
-
+app.get("/searchBlog",loader.get("/searchBlog"));
 app.listen(globalconfig.port,()=>{
     console.log("服务已启动");
 })

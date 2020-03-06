@@ -152,3 +152,26 @@ var article_list = new Vue({//首页里文章列表(博客)部分
         this.getPage(this.page,this.pageSize);//首页加载进入的时候获取像后端发送请求获取博客数据
     }
 })
+
+var search = new Vue({
+    el: "#search_bar",
+    data: {
+        search: ""
+    },
+    methods: {
+        sendSearch: function () {
+            axios({
+                method:'get',
+                url: "/searchBlog?search=" + this.search
+            }).then(function (resp) {
+                article_list.count = resp.data.count;
+                article_list.page = 1;
+                article_list.articleList = resp.data.list;
+                // window.location.reload();               
+            });
+        }
+    },
+    computed: {
+
+    }
+});

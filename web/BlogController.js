@@ -98,8 +98,26 @@ function queryHotBlog(request, response) {//查询热门博客
         response.end();
     });
 }
-
 path.set("/queryHotBlog", queryHotBlog);
+
+function searchBlog(request,response){//输入关键字插叙博客
+    let params = url.parse(request.url, true).query;
+    if (!params.search) {
+        response.writeHead(400);
+        response.end("must have be search");
+        return;
+    }
+    console.log(params.search);
+    blogDao.queryBlogBySearch(params.search, function (result) {
+        console.log(result);
+        blogDao.queryBlogBySearchCount(params.search, function (count) {
+            console.log(result);
+            response.writeHead(200);
+            response.end(JSON.stringify({count: count, list: result}));
+        });
+    });
+}
+path.set("/searchBlog", searchBlog);
 
 module.exports.path = path;
 

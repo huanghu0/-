@@ -7,7 +7,7 @@
     <title>黄虎个人博客</title>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/index.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="./js/vue.js"></script>
     <script src="./js/axios.js"></script>
 </head>
 <body>
@@ -20,9 +20,9 @@
                 <li><a href="/sitemap.html">地图</a></li>
                 <li><a href="/guestbook.html">留言</a></li>
             </ul>
-            <div class="search_bar">
-                <input type="text" placeholder="输入关键词查找">
-                <button>
+            <div class="search_bar" id="search_bar">
+                <input type="text" placeholder="输入关键词查找" v-model="search">
+                <button v-on:click="sendSearch">
                     搜索
                 </button>
             </div>
